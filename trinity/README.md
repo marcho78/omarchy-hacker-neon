@@ -200,6 +200,63 @@ Any of these can be missing; only the actions that use it won't work.
 | Make her remember | "Remember that ..." (she only keeps what you ask her to) |
 | See what she did | `journalctl --user -u trinity -f` (every action is logged) |
 
+## The desktop board and video
+
+Two things she can put on your desktop, between the Agent Radar and the HUD,
+behind your windows. Both need Trinity running with your xAI key; the video
+also needs `yt-dlp` and [Uber TV](https://github.com/marcho78/uber-tv).
+
+### The board: lists that decode onto the wallpaper
+
+Ask for anything as a list: *"put today's top news on my desktop"*, *"show my
+to-dos on screen"*, *"list what my agents are doing"*. She says a one-line
+summary out loud and puts the list on the wallpaper:
+
+- A header, `// TRINITY · <TITLE> · <time> · <n> ITEMS`, a glowing rule, then
+  the lines, each arriving as scrambled glyphs that resolve into its text, one
+  after another.
+- Up to 12 lines, each with an optional tag in front, a source or a category
+  such as `REUTERS` or `TODO`.
+- It clears itself after 10 minutes, unless you ask her to keep it there
+  (then the header says `PINNED`).
+- A new list replaces the one before, and shows even if the board was hidden.
+
+| To | Do |
+|---|---|
+| Take it away | `[ CLEAR ]` on the board, **Super+Alt+X**, or *"clear the screen"* |
+| Tuck it away | `[ HIDE ]`: it leaves a **BRIEF** tab at the top edge; click the tab to bring it back |
+
+### The video: YouTube on the desktop
+
+Ask *"play the newest Kurzgesagt video"*, *"play some lofi hip hop"*, or give her
+a YouTube link. She finds it with `yt-dlp`, and it plays on the desktop in a
+16:9 frame with a glowing green edge, with its title, time and a progress line
+under it. It plays the best H.264 up to 1080p, with the video's original
+audio, through Uber TV's streamer. Live streams haven't been tested.
+
+It comes in three sizes:
+
+| Size | What it is | Get there |
+|---|---|---|
+| On the desktop | Under the bar, behind your windows | Where it starts; `[ ↙ BACK TO DESKTOP ]`, Esc, or *"put it back on the desktop"* |
+| Full screen | Over everything, the bar included; the controls fade after 2.5 seconds and come back when the mouse moves | `[ ⤢ FULL SCREEN ]`, double-click the picture, or *"full screen"* |
+| Pop-out window | A small window in front of everything, on every workspace: Omarchy's picture-in-picture rule floats and pins it at 600×338 in the top right and keeps it 16:9; you can move and resize it | `[ ⧉ POP OUT ]`, or *"pop it out"* |
+
+| To | Do |
+|---|---|
+| Pause or play | Click the picture, `[ ❚❚ PAUSE ]` / `[ ▶ PLAY ]`, Space, or *"pause"* |
+| Jump | Click the progress line; ← and → skip 10 seconds (full screen and pop-out); or *"skip ahead two minutes"* |
+| Louder or quieter | ↑ and ↓ (full screen), or *"louder"* / *"quieter"* |
+| Leave full screen | Esc, F, or double-click |
+| Stop | `[ ■ STOP ]`, or *"stop the video"*; it also stops at the end |
+| Hide it | `[ HIDE ]` (on the desktop only): it leaves a **VIDEO** tab at the bottom edge, and the sound keeps playing |
+| Close the pop-out | Super+W puts the video back on the desktop |
+
+From a terminal or a script:
+
+- `~/.local/bin/o-widgets hide|show brief` (the board) or `video`
+- `omarchy-shell marcho.trinity.video status|toggle|stop|full|window|panel`
+
 ## What stays on your computer
 
 | Where | What |

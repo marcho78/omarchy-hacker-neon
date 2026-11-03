@@ -104,6 +104,8 @@ Run these from this folder. Steps 1–6 make the look; step 7 adds Trinity.
 | Jump to a coding agent | Click its cell on the Agent Radar |
 | See the dock | Use a floating workspace and move the pointer to the bottom edge |
 | Talk to Trinity | **Super+Z** (see [her guide](trinity/README.md#using-her)) |
+| Put a list on the desktop | Ask Trinity, e.g. *"put today's top news on my desktop"*; Super+Alt+X clears it ([more](trinity/README.md#the-board-lists-that-decode-onto-the-wallpaper)) |
+| Play a YouTube video on the desktop | Ask Trinity, e.g. *"play the newest Kurzgesagt video"*; it can go full screen or pop out ([more](trinity/README.md#the-video-youtube-on-the-desktop)) |
 
 ![The lock screen in Hacker Neon](docs/screenshots/lock-screen.png)
 
