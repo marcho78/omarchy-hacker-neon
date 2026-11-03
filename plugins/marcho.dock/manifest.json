@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "id": "marcho.dock",
+  "name": "Neon Dock",
+  "version": "1.0.0",
+  "author": "Omarchy",
+  "description": "App dock shown on floating workspaces",
+  "kinds": [
+    "service"
+  ],
+  "entryPoints": {
+    "service": "Dock.qml"
+  },
+  "omarchy": {
+    "clonedFrom": "omarchy.dock"
+  }
+}

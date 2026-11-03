@@ -1,0 +1,15 @@
+{
+  "title": "TRINITY",
+  "listening": "LISTENING",
+  "thinking": "THINKING",
+  "speaking": "SPEAKING",
+  "idle": "STANDING BY",
+  "offline": "SERVICE OFFLINE",
+  "you": "you",
+  "typeMessage": "Message Trinity…",
+  "voiceReplies": "VOICE + TEXT",
+  "textReplies": "TEXT ONLY",
+  "wakeOn": "HEY TRINITY: ON",
+  "wakeOff": "HEY TRINITY: OFF",
+  "hint": "[SUPER+Z] TALK · CLICK ORB TO CHAT"
+}

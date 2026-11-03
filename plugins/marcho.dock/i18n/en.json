@@ -1,0 +1,14 @@
+{
+  "apps.label": "All apps",
+  "count.apps": "%1 apps",
+  "group.web": "WEB",
+  "group.system": "SYSTEM",
+  "group.office": "OFFICE",
+  "group.media": "MEDIA",
+  "group.other": "OTHER",
+  "group.dev": "DEV",
+  "group.games": "GAMES",
+  "hints.launch": "launch",
+  "hints.move": "move",
+  "hints.close": "close"
+}

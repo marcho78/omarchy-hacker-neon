@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "marcho.hud",
+  "name": "Neon HUD",
+  "version": "1.0.0",
+  "author": "marcho78",
+  "description": "Desktop HUD with live CPU, memory and network use, and the token use and limits of your AI agents",
+  "kinds": [
+    "service"
+  ],
+  "entryPoints": {
+    "service": "Hud.qml"
+  }
+}

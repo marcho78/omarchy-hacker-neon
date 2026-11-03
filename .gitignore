@@ -1,0 +1,10 @@
+# Built on each machine
+node_modules/
+.venv/
+__pycache__/
+
+# Personal: a wake word model is trained on its owner's voice, and recordings are their voice
+*.onnx
+trinity/wakeword/training/voice/
+*.wav
+*.log

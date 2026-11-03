@@ -1,0 +1,12 @@
+{
+  "title": "AGENT RADAR",
+  "contacts": "CONTACTS",
+  "active": "ACTIVE",
+  "needsYou": "NEEDS YOU",
+  "working": "WORKING",
+  "done": "DONE",
+  "idle": "IDLE",
+  "unknown": "UNKNOWN",
+  "offline": "HERDR OFFLINE",
+  "hint": "CLICK A CELL TO JUMP TO IT"
+}

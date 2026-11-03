@@ -1,0 +1,16 @@
+{
+  "system": "SYSTEM",
+  "aiUsage": "AI USAGE",
+  "live": "LIVE",
+  "default": "DEFAULT",
+  "cpu": "CPU",
+  "memory": "MEM",
+  "network": "NET",
+  "today": "TODAY",
+  "week": "WEEK",
+  "apiTitle": "API · TRINITY (XAI)",
+  "voice": "VOICE",
+  "text": "TEXT",
+  "search": "SEARCH",
+  "cost": "COST"
+}

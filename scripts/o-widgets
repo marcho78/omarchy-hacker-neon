@@ -1,0 +1,106 @@
+#!/usr/bin/env python3
+"""Shows and hides the desktop widgets: the Neon HUD's two panels (system,
+and AI usage), the Agent Radar and Trinity's desktop list. A hidden widget leaves a tab at its screen edge;
+"clean" hides everything, tabs included, until it's run again.
+
+    o-widgets toggle|hide|show system|usage|radar|brief|video   (hud: both panels)
+    o-widgets clean [on|off] hide everything, or bring it all back
+    o-widgets clear          take Trinity's list off the desktop
+    o-widgets menu           pick which widgets show (Super+Alt+W)
+    o-widgets status         the state, as JSON
+
+The state is one file the widgets watch:
+~/.local/state/o-interfaces/widgets.json
+"""
+
+import json
+import os
+import socket
+import subprocess
+import sys
+
+STATE = os.path.join(os.environ.get("XDG_STATE_HOME") or os.path.expanduser("~/.local/state"), "o-interfaces", "widgets.json")
+WIDGETS = {"system": "HUD: system", "usage": "HUD: AI usage", "radar": "Agent Radar", "brief": "Trinity's list", "video": "Trinity's video"}
+
+
+def load():
+    try:
+        with open(STATE) as f:
+            data = json.load(f)
+    except (OSError, ValueError):
+        data = {}
+    hidden = data.get("hidden") if isinstance(data.get("hidden"), dict) else {}
+    return {"hidden": {w: hidden.get(w) is True or (w in ("system", "usage") and hidden.get("hud") is True) for w in WIDGETS}, "clean": data.get("clean") is True}
+
+
+# Written in place, not swapped in, so the widgets' file watches keep it.
+def save(state):
+    os.makedirs(os.path.dirname(STATE), exist_ok=True)
+    with open(STATE, "w") as f:
+        f.write(json.dumps(state, indent=2) + "\n")
+
+
+def trinity(line):
+    sock = os.path.join(os.environ.get("XDG_RUNTIME_DIR", "/tmp"), "trinity.sock")
+    try:
+        with socket.socket(socket.AF_UNIX) as s:
+            s.connect(sock)
+            s.sendall(line.encode())
+    except OSError:
+        print("Trinity's service isn't running.", file=sys.stderr)
+        return False
+    return True
+
+
+def menu(state):
+    # Omarchy's own picker: the widgets showing are ticked; each tick or untick
+    # applies at once through `o-widgets apply`.
+    options = [f"{name}\t{key}" for key, name in WIDGETS.items()]
+    selected = [f"{WIDGETS[k]}\t{k}" for k in WIDGETS if not state["hidden"][k]]
+    args = ["omarchy-menu-select", "Widgets", *options, "--", "--multiple", "--width", "360"]
+    for s in selected:
+        args += ["--selected", s]
+    args += ["--on-change", json.dumps([os.path.abspath(__file__), "apply"])]
+    subprocess.run(args)
+
+
+def main(argv):
+    if not argv or argv[0] in ("-h", "--help"):
+        print(__doc__.strip())
+        return 0
+    state = load()
+    verb = argv[0]
+
+    if verb == "status":
+        print(json.dumps(state))
+        return 0
+    if verb == "clean":
+        state["clean"] = (argv[1] == "on") if len(argv) > 1 and argv[1] in ("on", "off") else not state["clean"]
+        save(state)
+        return 0
+    if verb == "clear":
+        return 0 if trinity("board clear") else 1
+    if verb == "menu":
+        menu(state)
+        return 0
+    if verb == "apply":
+        # From the menu: the JSON list of rows now ticked, each "<name>\t<key>".
+        ticked = json.loads(argv[-1]) if len(argv) > 1 else []
+        keys = {str(t).split("\t")[-1] for t in ticked}
+        state["hidden"] = {w: w not in keys for w in WIDGETS}
+        state["clean"] = False
+        save(state)
+        print(json.dumps([f"{WIDGETS[k]}\t{k}" for k in WIDGETS if k in keys]))
+        return 0
+    if verb in ("toggle", "hide", "show") and len(argv) > 1 and (argv[1] in WIDGETS or argv[1] == "hud"):
+        for w in ("system", "usage") if argv[1] == "hud" else (argv[1],):
+            state["hidden"][w] = (not state["hidden"][w]) if verb == "toggle" else verb == "hide"
+        state["clean"] = False
+        save(state)
+        return 0
+    print(__doc__.strip(), file=sys.stderr)
+    return 2
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))

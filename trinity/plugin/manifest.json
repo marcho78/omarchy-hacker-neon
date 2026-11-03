@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "marcho.trinity",
+  "name": "Trinity",
+  "version": "0.1.0",
+  "author": "marcho78",
+  "description": "Trinity, a voice and chat agent: a holographic orb that appears when you talk to it",
+  "kinds": [
+    "service",
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "service": "Trinity.qml",
+    "barWidget": "MuteButton.qml"
+  },
+  "barWidget": {
+    "displayName": "Trinity mute",
+    "description": "Mutes Trinity: she stops listening for “Hey Trinity” and any conversation ends. Click again to unmute.",
+    "category": "AI",
+    "allowMultiple": false,
+    "defaultSection": "right"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "marcho.radar",
+  "name": "Agent Radar",
+  "version": "1.0.0",
+  "author": "marcho78",
+  "description": "Your Herdr coding agents on the desktop: a hex cell per agent, grouped by workspace, lit by whether it's working, needs you, done or idle. Click one to jump to it.",
+  "kinds": [
+    "service"
+  ],
+  "entryPoints": {
+    "service": "Radar.qml"
+  }
+}
